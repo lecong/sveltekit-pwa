@@ -10,7 +10,11 @@ const config = {
 		adapter: adapter(),
 		paths: {
             base: process.env.NODE_ENV === 'production' ? '/sveltekit-pwa' : '',
-        }
+        },
+		files: {
+			assets: process.env.NODE_ENV === 'production' ? 'static' : 'static-dev',
+			serviceWorker: process.env.NODE_ENV === 'production' ? 'src/service-worker' : 'src/service-worker-dev'
+		}
 	},
 	preprocess: vitePreprocess()
 };
