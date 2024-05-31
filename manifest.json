@@ -4,7 +4,7 @@
     "start_url": "https://lecong.github.io/sveltekit-pwa/",
     "icons": [
         {
-            "src": "/favicon.svg",
+            "src": "/sveltekit-pwa/favicon.svg",
             "type": "image/svg+xml",
             "sizes": "any"
         }
