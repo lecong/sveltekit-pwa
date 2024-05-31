@@ -2,8 +2,7 @@
 	import '../../app.css';
 	import { isIOS } from '$lib/utils/device';
 	import { onMount } from 'svelte';
-	import { App, Button, Icon, Notification } from 'konsta/svelte';
-	import logo from '$lib/images/svelte-logo.svg';
+	import { App, Dialog, DialogButton } from 'konsta/svelte';
 	import { browser } from '$app/environment';
 
 	const theme = browser && isIOS() ? 'ios' : 'material';
@@ -23,7 +22,7 @@
 			console.log('onMount 3 | showInstallAppNotification', showInstallAppNotification);
 		});
 
-		window.addEventListener("appinstalled", () => {
+		window.addEventListener('appinstalled', () => {
 			showInstallAppNotification = false;
 		});
 	});
@@ -46,15 +45,15 @@
 
 <App {theme}>
 	<slot />
-	<Notification
+	<Dialog
 		opened={showInstallAppNotification}
-		title="SvelteKit PWA"
-		subtitle="Cài đặt ứng dung"
-		text="Cài đặt ứng dụng để có trải nghiệm tốt hơn."
+		onBackdropClick={() => (showInstallAppNotification = false)}
 	>
-		<Icon slot="icon" class="size-10">
-			<img src={logo} alt="icon" />
-		</Icon>
-		<Button slot="button" onClick={handleInstall}>Cài đặt</Button>
-	</Notification>
+		<svelte:fragment slot="title">Cài đặt ứng dụng</svelte:fragment>
+		Hãy cài đặt ứng dụng để có trải nghiệm tốt hơn.
+		<svelte:fragment slot="buttons">
+			<DialogButton onClick={() => (showInstallAppNotification = false)}>Huỷ</DialogButton>
+			<DialogButton strong onClick={handleInstall}>Cài đặt</DialogButton>
+		</svelte:fragment>
+	</Dialog>
 </App>
